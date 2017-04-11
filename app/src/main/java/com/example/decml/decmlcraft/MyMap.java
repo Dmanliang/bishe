@@ -117,6 +117,7 @@ public class MyMap extends SurfaceView implements Callback, Runnable,View.OnTouc
 	public static ArrayList<Block> 	blocks		=	new ArrayList<>();
 	public static Vector<Muzzle> 	vcMuzzle	=	new Vector<>();
 	public static Vector<Monster> 	vcMonster 	=	new Vector<>();
+	public static ArrayList<Bitmap> bitmaps		= 	new ArrayList<>();
 	public MyMap(Context context) {
 		super(context);
 		sfh = this.getHolder();
@@ -197,6 +198,62 @@ public class MyMap extends SurfaceView implements Callback, Runnable,View.OnTouc
 		bmpGuardCloths			=	BitmapFactory.decodeResource(res,R.drawable.guard_clothes);
 		bmpGuardPants			=	BitmapFactory.decodeResource(res,R.drawable.guard_pants);
 		bmpGuardShoes			=	BitmapFactory.decodeResource(res,R.drawable.guard_shoes);
+		bitmaps.add(bmpBackGround);
+		bitmaps.add(bmpBackGroundTwo);
+		bitmaps.add(bmpPackage);
+		bitmaps.add(bmpMenu);
+		bitmaps.add(bmpBack);
+		bitmaps.add(bmpPlayer);
+		bitmaps.add(bmpPlayerHp);
+		bitmaps.add(bmpPlayerPt);
+		bitmaps.add(bmpBoss);
+		bitmaps.add(bmpKeyBoardUp);
+		bitmaps.add(bmpKeyBoardDown);
+		bitmaps.add(bmpKeyBoardLeft);
+		bitmaps.add(bmpKeyBoardRight);
+		bitmaps.add(bmpButtonMenu);
+		bitmaps.add(bmpButtonActtack);
+		bitmaps.add(bmpButtonOk	);
+		bitmaps.add(bmpButtonBack);
+		bitmaps.add(bmpButtonPackage);
+		bitmaps.add(bmpButtonJump);
+		bitmaps.add(bmpKeyBoardUpPress);
+		bitmaps.add(bmpKeyBoardDownPress);
+		bitmaps.add(bmpKeyBoardLeftPress);
+		bitmaps.add(bmpKeyBoardRightPress);
+		bitmaps.add(bmpButtonMenuPress);
+		bitmaps.add(bmpButtonActtackPress);
+		bitmaps.add(bmpButtonOkPress);
+		bitmaps.add(bmpButtonBackPress	);
+		bitmaps.add(bmpButtonPackagePress);
+		bitmaps.add(bmpButtonJumpPress);
+		bitmaps.add(bmpMenuStart);
+		bitmaps.add(bmpMenuExit	);
+		bitmaps.add(bmpMenuReturn);
+		bitmaps.add(bmpMenuStartPress);
+		bitmaps.add(bmpMenuExitPress);
+		bitmaps.add(bmpMenuReturnPress);
+		bitmaps.add(bmpBoardBlock);
+		bitmaps.add(bmpBoxBlock);
+		bitmaps.add(bmpBrickBlock);
+		bitmaps.add(bmpCrucibleBlock);
+		bitmaps.add(bmpDiamondBlock);
+		bitmaps.add(bmpGoldStoneBlock);
+		bitmaps.add(bmpGrassBlock);
+		bitmaps.add(bmpIronStoneBlock);
+		bitmaps.add(bmpLeavesBlock);
+		bitmaps.add(bmpMagmaBlock);
+		bitmaps.add(bmpRockBlock);
+		bitmaps.add(bmpSandBlock);
+		bitmaps.add(bmpSoilBlock);
+		bitmaps.add(bmpFoodApple);
+		bitmaps.add(bmpFoodChicken);
+		bitmaps.add(bmpFoodDrumstick);
+		bitmaps.add(bmpGuardArms);
+		bitmaps.add(bmpGuardArmet);
+		bitmaps.add(bmpGuardCloths);
+		bitmaps.add(bmpGuardPants);
+		bitmaps.add(bmpGuardShoes);
 		backGround				=	new BackGround(res,bmpBackGround,screenW,screenH);
 		backGroundTwo			=	new BackGroundTwo(res,bmpBackGroundTwo,screenW,screenH);
 		mpackage				=	new Package(res,bmpPackage,screenW,screenH);
@@ -219,6 +276,7 @@ public class MyMap extends SurfaceView implements Callback, Runnable,View.OnTouc
 		createBlocks();
 		createItems();
 	}
+
 
 	public void createItems(){
 		for(int i=0;i<10;i++){
@@ -466,6 +524,18 @@ public class MyMap extends SurfaceView implements Callback, Runnable,View.OnTouc
 		}
 	}
 
+	//对所有位图进行回收
+	private void recycle(ArrayList<Bitmap> mBitmap) {
+		if(mBitmap.size() != 0){
+			for(int i=0;i<mBitmap.size();i++){
+				if(mBitmap.get(i)!=null){
+
+					mBitmap.get(i).recycle();
+				}
+			}
+		}
+	}
+
 	//主触屏监听函数
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
@@ -602,6 +672,7 @@ public class MyMap extends SurfaceView implements Callback, Runnable,View.OnTouc
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		flag = false;
 		holder.getSurface().release();
+		recycle(bitmaps);
 	}
 
 	@Override
